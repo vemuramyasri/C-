@@ -1,0 +1,36 @@
+class Solution:
+    def maximumGain(self, s: str, x: int, y: int) -> int:
+        points = 0
+        vals = {"ab": x, "ba": y}
+        if x >= y:
+            first = "ab"
+            second = "ba"
+        else:
+            first = "ba"
+            second = "ab"
+        stack = [s[0]]
+        for i in s[1:]:
+            if stack and i == first[1] and stack[-1] == first[0]:
+                stack.pop()
+                points += vals[first]
+            else:
+                stack.append(i)
+
+        s = "".join(stack)
+        stack = []
+        for i in s:
+            if stack and i == second[1] and stack[-1] == second[0]:
+                stack.pop()
+                points += vals[second]
+            else:
+                stack.append(i)
+
+        return points
+
+
+
+
+
+
+
+        
