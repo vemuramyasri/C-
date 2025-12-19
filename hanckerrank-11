@@ -1,0 +1,67 @@
+class LRUCache : public Cache {
+public:
+    // Constructor to initialize capacity and pointers
+    LRUCache(int capacity) {
+        this->cp = capacity;
+        this->head = nullptr;
+        this->tail = nullptr;
+    }
+
+    // Function to move a node to the front (Most Recently Used)
+    void moveToHead(Node* node) {
+        if (node == head) return;
+
+        // Disconnect from current position
+        if (node->prev) node->prev->next = node->next;
+        if (node->next) node->next->prev = node->prev;
+
+        if (node == tail) tail = node->prev;
+
+        // Insert at head
+        node->next = head;
+        node->prev = nullptr;
+        if (head) head->prev = node;
+        head = node;
+
+        if (!tail) tail = head;
+    }
+
+    void set(int key, int value) override {
+        // Case 1: Key already exists, update value and move to head
+        if (mp.find(key) != mp.end()) {
+            mp[key]->value = value;
+            moveToHead(mp[key]);
+        } 
+        // Case 2: New key
+        else {
+            Node* newNode = new Node(key, value);
+            mp[key] = newNode;
+
+            if (!head) {
+                head = tail = newNode;
+            } else {
+                newNode->next = head;
+                head->prev = newNode;
+                head = newNode;
+            }
+
+            // Case 3: Over capacity, evict the tail
+            if (mp.size() > (size_t)cp) {
+                mp.erase(tail->key);
+                Node* temp = tail;
+                tail = tail->prev;
+                if (tail) tail->next = nullptr;
+                delete temp;
+            }
+        }
+    }
+
+    int get(int key) override {
+        if (mp.find(key) == mp.end()) {
+            return -1;
+        }
+        // Move found node to head and return its value
+        moveToHead(mp[key]);
+        return mp[key]->value;
+    }
+};
