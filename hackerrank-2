@@ -1,0 +1,26 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+
+int main() {
+    // 1. Declare variables with correct types
+    int i;
+    long l;
+    char ch;
+    float f;
+    double d;
+
+    // 2. Read the input using format specifiers
+    // Note: The '&' is used to provide the memory address for scanf to fill
+    scanf("%d %ld %c %f %lf", &i, &l, &ch, &f, &d);
+
+    // 3. Print the output, each on a new line (\n)
+    // .3f means "3 decimal places", .9lf means "9 decimal places"
+    printf("%d\n", i);
+    printf("%ld\n", l);
+    printf("%c\n", ch);
+    printf("%.3f\n", f);
+    printf("%.9lf\n", d);
+
+    return 0;
+}
