@@ -1,0 +1,38 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    int n, q;
+    cin >> n >> q;
+
+    // Create a vector of vectors (a jagged 2D array)
+    vector<vector<int>> outer_vector;
+
+    for (int i = 0; i < n; i++) {
+        int k;
+        cin >> k;
+        
+        // Create an inner vector for the current row
+        vector<int> inner_vector;
+        for (int j = 0; j < k; j++) {
+            int value;
+            cin >> value;
+            inner_vector.push_back(value);
+        }
+        
+        // Add the completed row to our main container
+        outer_vector.push_back(inner_vector);
+    }
+
+    // Process queries
+    for (int k = 0; k < q; k++) {
+        int i, j;
+        cin >> i >> j;
+        // Access row i, then element j within that row
+        cout << outer_vector[i][j] << endl;
+    }
+
+    return 0;
+}
