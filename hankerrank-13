@@ -1,0 +1,25 @@
+int q; // Number of queries
+    cin >> q;
+    
+    map<string, int> m; // Key: Student Name, Value: Total Marks
+    
+    for (int i = 0; i < q; i++) {
+        int type;
+        string name;
+        cin >> type >> name;
+        
+        if (type == 1) {
+            int marks;
+            cin >> marks;
+            // Add marks to existing total or create new entry
+            m[name] += marks;
+        } 
+        else if (type == 2) {
+            // Remove the student record
+            m.erase(name);
+        } 
+        else if (type == 3) {
+            // Print current total marks (default is 0 if not found)
+            cout << m[name] << endl;
+        }
+    }
