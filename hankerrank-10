@@ -1,0 +1,62 @@
+// Base class
+class Person {
+public:
+    string name;
+    int age;
+
+    // virtual functions allow for polymorphism
+    virtual void getdata() = 0; // Pure virtual: Person is now an abstract class
+    virtual void putdata() = 0;
+    virtual ~Person() {} // Good practice to have a virtual destructor
+};
+
+// Derived class for Professors
+class Professor : public Person {
+    int publications;
+    int cur_id;
+    static int id_gen; // Static variable to track IDs across all Professor objects
+
+public:
+    Professor() {
+        this->cur_id = ++id_gen;
+    }
+
+    void getdata() override {
+        cin >> name >> age >> publications;
+    }
+
+    void putdata() override {
+        cout << name << " " << age << " " << publications << " " << cur_id << endl;
+    }
+};
+// Initialize the static ID generator for Professors
+int Professor::id_gen = 0;
+
+// Derived class for Students
+class Student : public Person {
+    int marks[6];
+    int cur_id;
+    static int id_gen;
+
+public:
+    Student() {
+        this->cur_id = ++id_gen;
+    }
+
+    void getdata() override {
+        cin >> name >> age;
+        for (int i = 0; i < 6; i++) {
+            cin >> marks[i];
+        }
+    }
+
+    void putdata() override {
+        int sum = 0;
+        for (int i = 0; i < 6; i++) {
+            sum += marks[i];
+        }
+        cout << name << " " << age << " " << sum << " " << cur_id << endl;
+    }
+};
+// Initialize the static ID generator for Students
+int Student::id_gen = 0;
