@@ -1,0 +1,29 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+int main() {
+    int a, b;
+    cin >> a >> b;
+
+    // We can use an array/vector to store words to keep the code clean
+    string labels[] = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+
+    for (int i = a; i <= b; i++) {
+        if (i >= 1 && i <= 9) {
+            // Print the word from our labels array
+            cout << labels[i] << endl;
+        } else {
+            // Check if even or odd for numbers > 9
+            if (i % 2 == 0) {
+                cout << "even" << endl;
+            } else {
+                cout << "odd" << endl;
+            }
+        }
+    }
+
+    return 0;
+}
